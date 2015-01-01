@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app version="3.0"
+  xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+ 
+  <!-- To save as <CATALINA_HOME>\webapps\First\WEB-INF\web.xml -->
+ 
+    <servlet>
+      <servlet-name>Final</servlet-name>
+      <servlet-class>Final</servlet-class>
+      <load-on-startup>2</load-on-startup>
+    </servlet>
+    
+    <servlet>
+      <servlet-name>AddReq</servlet-name>
+      <servlet-class>AddReq</servlet-class>
+    </servlet>
+    <servlet>
+      <servlet-name>Move</servlet-name>
+      <servlet-class>Move</servlet-class>
+    </servlet>
+    <servlet>
+      <servlet-name>RemReq</servlet-name>
+      <servlet-class>RemReq</servlet-class>
+    </servlet> 
+    <servlet>
+      <servlet-name>NewPrior</servlet-name>
+      <servlet-class>NewPrior</servlet-class>
+    </servlet> 
+   <!-- Note: All <servlet> elements MUST be grouped together and
+         placed IN FRONT of the <servlet-mapping> elements -->
+ 
+    <servlet-mapping>
+      <servlet-name>Final</servlet-name>
+      <url-pattern>/final</url-pattern>
+    </servlet-mapping>
+ 
+   <servlet-mapping>
+      <servlet-name>AddReq</servlet-name>
+      <url-pattern>/addreq</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+      <servlet-name>Move</servlet-name>
+      <url-pattern>/move</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+      <servlet-name>RemReq</servlet-name>
+      <url-pattern>/remreq</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+      <servlet-name>NewPrior</servlet-name>
+      <url-pattern>/newprior</url-pattern>
+   </servlet-mapping>
+</web-app>

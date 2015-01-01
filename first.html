@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+  var reqno=0;
+  function addreq()
+  {
+    document.getElementById("p1").innerHTML="Done!!";
+    reqno=reqno+1;
+    var reqid="R"+reqno;
+    var par=document.getElementById("parent").value;
+    var reqdesc=document.getElementById("reqdesc").value;
+    document.getElementById("p1").innerHTML="Done 2!!";
+    if(par=="")//||par.search(/r[0-9]+/i)!=0||par.search(/root/i)!=0)
+      alert("Enter the Parent name in the correct format!!")
+    else
+    {
+      // document.location.href="localhost:8080/HelloServlet/sayhello"
+      $.get('addreq',{rid:reqid,parent:par,reqd:reqdesc}, function(data) {
+        // alert(data);
+        document.getElementById("p1").innerHTML=data;
+          if(data=="true")
+          {   
+            document.getElementById("p1").innerHTML=reqid + " created";
+            //add it to the appropriate position
+          }
+          else
+          {
+            alert("Addition failed!! Please try Again..")
+            reqno=reqno-1;
+          }
+      });
+    }
+    // document.getElementById("p1").innerHTML="Done 3!!";R2 
+    // var tmp=ind.split(".");
+    // var len=tmp.length;
+    // var i;
+    // var str=ind;
+    // for(i=0;i<len;i++)
+    //   str="\t      "+str;
+    // var f=str+'\t'+reqid;
+  }
+</script>
+
+<script>
+  function move()
+  {
+    var par=document.getElementById("newparent").value;
+    var rid=document.getElementById("mreq").value;
+    if(par=="")//||par.search(/r[0-9]+/i)!=0||par.search(/root/i)!=0)
+      alert("Enter the Parent name in the correctl format!!")
+    else if(rid=="")//||par.search(/r[0-9]+/i)!=0||par.search(/root/i)!=0)
+      alert("Enter the Requirement ID in the correctl format!!")
+    
+    else
+    {
+      // document.location.href="localhost:8080/HelloServlet/sayhello"
+      $.get('move',{parent:par,reqid:rid}, function(data) {
+          if(data=="true")
+          {   
+            document.getElementById("p1").innerHTML=rid + " moved under "+par;
+            //add it to the appropriate position
+          }else
+            alert("Invalid Move!! Please try Again..")
+      });
+    }
+  }
+</script>
+
+<script>
+  function remreq()
+  {
+    var par=document.getElementById("req").value;
+    if(par=="")//||par.search(/r[0-9]+/i)!=0||par.search(/root/i)!=0)
+      alert("Enter the Parent name in the correctl format!!")
+    else
+    {
+      // document.location.href="localhost:8080/HelloServlet/sayhello"
+      $.get('remreq',{reqid:par}, function(data) {
+          if(data=="true")
+          {
+            document.getElementById("p1").innerHTML=par + " removed";
+            //add it to the appropriate position
+          
+          }
+          else
+            alert("Removal failed!! Please try Again..");
+      });
+    }
+  }
+</script>
+<script>
+  function changeprior()
+  {
+    var pr=document.getElementById("pr").value;
+    var rid=document.getElementById("mreq1").value;
+    if(pr=="")//||par.search(/r[0-9]+/i)!=0||par.search(/root/i)!=0)
+      alert("Enter the Priority in the correctl format!!")
+    else if(rid=="")//||par.search(/r[0-9]+/i)!=0||par.search(/root/i)!=0)
+      alert("Enter the Requirement ID in the correctl format!!")
+    
+    else
+    {
+      // document.location.href="localhost:8080/HelloServlet/sayhello"
+      $.get('newprior',{prior:pr,reqd:rid}, function(data) {
+    // document.getElementById("p1").innerHTML=data;
+          if(data=="true")
+          {
+               
+            document.getElementById("p1").innerHTML="priority of "+rid+" changed to "+pr;
+            //add it to the appropriate position
+          
+          }
+          else
+            alert("Invalid Move!! Please try Again..")
+      });
+    }
+  }
+</script>
+<style>
+
+</style>
+<head>
+
+</head>
+
+<body>
+<!-- <form action="http://localhost:8080/First/addreq" method="GET">  -->
+  <p id="p1"> </p>
+</br>
+  <label for="reqdesc">Requirement Description:</label>
+  <input type="text" id="reqdesc" name="reqdesc" maxlength=50 size=20/> 
+  <label for="parent">Parent Name:</label>
+  <input type="text" id="parent" name="parent" maxlength=10 size=12/>
+   <input type="button" value="Add Requirement" onclick="addreq()">
+</br>
+<!-- </form> -->
+<!-- <form action="http://localhost:8080/First/move" method="GET">   -->
+  <label for="mreq">Requirement ID:</label>
+  <input type="text" id="mreq" name="mreq" maxlength=10 size=12/>
+  <label for="newparent">New Parent Name:</label>
+  <input type="text" id="newparent" name="newparent" maxlength=10 size=12/>
+  <input type="button" value="Move" onclick="move()">
+  </br>
+<!-- </form> -->
+<!-- <form action="http://localhost:8080/First/remreq" method="GET">   -->
+  <label for="reqid">Requirement ID:</label>
+  <input type="text" id="req" name="req" maxlength=10 size=12/>
+  <input type="button" value="Remove Requirement" onclick="remreq()">
+  </br>
+  <label for="mreq1">Requirement ID:</label>
+  <input type="text" id="mreq1" name="mreq1" maxlength=10 size=12/>
+  <label for="pr">New Priority:</label>
+  <input type="text" id="pr" name="pr" maxlength=10 size=12/>
+  <input type="button" value="Change Priority" onclick="changeprior()">
+  </br>
+<!-- </form> -->
+</body>
+</html>
