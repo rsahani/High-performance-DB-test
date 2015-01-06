@@ -21,6 +21,24 @@ $(function () {
     console.log(data.selected);
       // alert(e+data.selected);
     });
+  // document.getElementById("reqid1").innerHTML="R0"
+
+  $('#tree1').on("changed.jstree", function (e, data) {
+    console.log(data.selected);
+      // alert(e+data.selected);
+    });
+
+  // $('#tree1').jstree();
+  // var str= [
+  //      { "id" : "ajson1", "text" : "Simple root node","parent" : "#" },
+  //      { "id" : "ajson2", "text" : "Root node 2", "parent" : "#" },
+  //      { "id" : "ajson3",  "text" : "Child 1","parent" : "ajson2" },
+  //      { "id" : "ajson4", "text" : "Child 2", "parent" : "ajson2" }
+  //   ];
+  //   var str1=[{"id":"R1","text":"E","parent":"#"},{"id":"R2","text":"E","parent":"#"},{"id":"R3","text":"E","parent":"#"},{"id":"R4","text":"E","parent":"#"},{"id":"R5","text":"E","parent":"#"}];
+//   $('#tree1').jstree({ core : {
+//     data : str1,check_callback: true 
+// }, plugins: ["dnd","state"]});
 });
 </script>
 <script>
@@ -168,6 +186,50 @@ $(function () {
     }
   }
 </script>
+<script>
+  function dispreq()
+  {
+    var par=document.getElementById("reqid1").value;
+    if(par=="")//||par.search(/r[0-9]+/i)!=0||par.search(/root/i)!=0)
+      alert("Enter the Parent name in the correctl format!!")
+    else
+    {
+      // document.location.href="localhost:8080/HelloServlet/sayhello"
+      // var str1=[{"id":"R1","text":"E","parent":"#"},{"id":"R2","text":"E","parent":"#"},{"id":"R3","text":"E","parent":"#"},{"id":"R4","text":"E","parent":"#"},{"id":"R5","text":"E","parent":"#"}];
+      $.get('dispreq',{reqid:par}, function(dat) {
+          document.getElementById("p1").innerHTML="here"
+          // var str=dat;
+          // alert(str);
+             // $('tree1').jstree({ core : {
+             //    data : dat
+          // alert($('#tree1').text()==null) ;  
+          // alert(dat);
+          // document.getElementById("tree1").remove();
+          // // var d=document.createElement("DIV");
+          // // alert(d);
+          // $('#tree').append("<div id=\"tree1\"></div>");
+        if($.jstree.reference('tree1')!=null)
+        {  
+          // document.getElementById("tree1").innerHTML="";
+         $('#tree1').jstree('destroy'); 
+        }
+          $('#tree1').jstree({ core : {
+                data : dat,check_callback: true 
+            }, plugins: ["dnd","state"]});
+      },'json');
+        // $('#tree1').jstree();
+          // document.getElementById("p1").innerHTML=data
+          // if(data!=null)
+          // {
+            // document.getElementById("p1").innerHTML=par + " dis";
+            //add it to the appropriate position
+          
+          // }
+          // else
+            // alert("Display failed!! Please try Again..");
+    }
+  }
+</script>
 <style>
 
 </style>
@@ -205,9 +267,16 @@ $(function () {
   <input type="text" id="pr" name="pr" maxlength=10 size=12/>
   <input type="button" value="Change Priority" onclick="changeprior()">
   </br>
+  <label for="reqid1">Requirement ID:</label>
+  <input type="text" id="reqid1" name="reqid1" maxlength=10 size=12/>
+  <input type="button" value="Display Requirement" onclick="dispreq()">
+  </br>
 <!-- </form> -->
 </br>
 <div id="tree">
   </div>
+<div id="tree1">
+  </div>
+
 </body>
 </html>

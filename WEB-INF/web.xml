@@ -11,7 +11,6 @@
       <servlet-class>Final</servlet-class>
       <load-on-startup>2</load-on-startup>
     </servlet>
-    
     <servlet>
       <servlet-name>AddReq</servlet-name>
       <servlet-class>AddReq</servlet-class>
@@ -23,6 +22,10 @@
     <servlet>
       <servlet-name>RemReq</servlet-name>
       <servlet-class>RemReq</servlet-class>
+    </servlet> 
+    <servlet>
+      <servlet-name>DispReq</servlet-name>
+      <servlet-class>DispReq</servlet-class>
     </servlet> 
     <servlet>
       <servlet-name>NewPrior</servlet-name>
@@ -51,5 +54,9 @@
    <servlet-mapping>
       <servlet-name>NewPrior</servlet-name>
       <url-pattern>/newprior</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+      <servlet-name>DispReq</servlet-name>
+      <url-pattern>/dispreq</url-pattern>
    </servlet-mapping>
 </web-app>
