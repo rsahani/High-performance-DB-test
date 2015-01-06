@@ -6,6 +6,7 @@
 <script src="jquery.js"></script>
 <script src="jstree.js"></script>
 <script>
+  var reqno=0;
 $(function () {
     // 6 create an instance when the DOM is ready
     
@@ -21,13 +22,16 @@ $(function () {
     console.log(data.selected);
       // alert(e+data.selected);
     });
-  // document.getElementById("reqid1").innerHTML="R0"
-
+  document.getElementById("reqid1").value="R0";
+dispreq();
   $('#tree1').on("changed.jstree", function (e, data) {
     console.log(data.selected);
       // alert(e+data.selected);
     });
-
+$.get('getid', function(data) {
+  // alert(data);
+  reqno=parseInt(data);
+})
   // $('#tree1').jstree();
   // var str= [
   //      { "id" : "ajson1", "text" : "Simple root node","parent" : "#" },
@@ -40,9 +44,6 @@ $(function () {
 //     data : str1,check_callback: true 
 // }, plugins: ["dnd","state"]});
 });
-</script>
-<script>
-  var reqno=0;
   function addreq()
   {
     document.getElementById("p1").innerHTML="Done!!";
@@ -64,7 +65,7 @@ $(function () {
           {   
             document.getElementById("p1").innerHTML=reqid + " created";
             //add it to the appropriate position
-            var d=$('#tree').jstree();
+            var d=$('#tree1').jstree();
             var tmp;
             if(par=="R0")
             {  
@@ -78,7 +79,7 @@ $(function () {
             $t=$("#"+tmp);
             d.rename_node($t,reqid)
             d.set_id($t,reqid)
-            d.open_all(); 
+            d.redraw(); 
           }
           else
           {
@@ -96,9 +97,7 @@ $(function () {
     //   str="\t      "+str;
     // var f=str+'\t'+reqid;
   }
-</script>
-
-<script>
+// </ript>
   function move()
   {
     var par=document.getElementById("newparent").value;
@@ -119,17 +118,14 @@ $(function () {
             var p=par;
             if(par=="R0")
               p="#";
-             var d=$('#tree').jstree();
+             var d=$('#tree1').jstree();
              d.move_node(rid,p,"last")
-             d.open_all();
+             d.redraw();
           }else
             alert("Invalid Move!! Please try Again..")
       });
     }
   }
-</script>
-
-<script>
   function remreq()
   {
     var par=document.getElementById("req").value;
@@ -143,18 +139,16 @@ $(function () {
           {
             document.getElementById("p1").innerHTML=par + " removed";
             //add it to the appropriate position
-             var d=$('#tree').jstree();
+             var d=$('#tree1').jstree();
              d.delete_node(par)
-          
-          }
+              d.redraw();
+          } 
           else
             alert("Removal failed!! Please try Again..");
       });
     }
   }
-</script>
-<script>
-  function changeprior()
+ function changeprior()
   {
     var pr=document.getElementById("pr").value;
     var rid=document.getElementById("mreq1").value;
@@ -173,23 +167,22 @@ $(function () {
                
             document.getElementById("p1").innerHTML="priority of "+rid+" changed to "+pr;
             //add it to the appropriate position
-              var d=$('#tree').jstree();
+              var d=$('#tree1').jstree();
               var par=d.get_parent(rid);
               if(par=="R0")
                 par="#";
               d.move_node(rid,par,pr-1)
-              d.open_all();
+              d.redraw();
           }
           else
             alert("Invalid Move!! Please try Again..")
       });
     }
   }
-</script>
-<script>
   function dispreq()
   {
     var par=document.getElementById("reqid1").value;
+     document.getElementById("reqid1").value="";
     if(par=="")//||par.search(/r[0-9]+/i)!=0||par.search(/root/i)!=0)
       alert("Enter the Parent name in the correctl format!!")
     else
@@ -217,6 +210,7 @@ $(function () {
                 data : dat,check_callback: true 
             }, plugins: ["dnd","state"]});
       },'json');
+      // $('#tree1').jstree().open_all();
         // $('#tree1').jstree();
           // document.getElementById("p1").innerHTML=data
           // if(data!=null)

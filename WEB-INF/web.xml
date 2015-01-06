@@ -26,6 +26,10 @@
     <servlet>
       <servlet-name>DispReq</servlet-name>
       <servlet-class>DispReq</servlet-class>
+    </servlet>
+    <servlet>
+      <servlet-name>GetId</servlet-name>
+      <servlet-class>GetId</servlet-class>
     </servlet> 
     <servlet>
       <servlet-name>NewPrior</servlet-name>
@@ -58,5 +62,9 @@
    <servlet-mapping>
       <servlet-name>DispReq</servlet-name>
       <url-pattern>/dispreq</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+      <servlet-name>GetId</servlet-name>
+      <url-pattern>/getid</url-pattern>
    </servlet-mapping>
 </web-app>

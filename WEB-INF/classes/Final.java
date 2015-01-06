@@ -266,6 +266,10 @@ public class Final extends HttpServlet
         inst=new Final();
         return inst;
     }
+    public int getId()
+    {
+    	return reqno;
+    }
     
  private void updateTc(String reqid,int n)
     {
@@ -456,6 +460,10 @@ public class Final extends HttpServlet
 	{
 		// System.out.println(rid);
 		// System.out.println(isRootsChild(rid));
+		if(rid.equals("R0"))
+		{
+			rid=table.get("R0").children.first().name;
+		}	
 		if(!isRootsChild(rid))
 			return null ;
 		Mp tmp=table.get(rid);
@@ -470,6 +478,7 @@ public class Final extends HttpServlet
 	}
 	public boolean ifEist(String ele)
 	{
+
 		if(table.get(ele)!=null)
 			return true;
 		return false;
